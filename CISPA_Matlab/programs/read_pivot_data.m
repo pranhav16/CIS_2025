@@ -1,5 +1,3 @@
-% programs/read_pivot_data.m
-
 function [G_frames] = read_pivot_data(filename)
     % Opens and reads the EM pivot data file.
     % filename: The path to the NAME-EMPIVOT.TXT file.
