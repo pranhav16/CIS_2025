@@ -14,8 +14,8 @@ addpath('programs');
 
 
 data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
-calbody_file = fullfile(data_dir, 'pa1-debug-a-calbody.txt');
-optpivot_file = fullfile(data_dir, 'pa1-debug-a-optpivot.txt');
+calbody_file = fullfile(data_dir, 'pa1-debug-b-calbody.txt');
+optpivot_file = fullfile(data_dir, 'pa1-debug-b-optpivot.txt');
 
 fprintf('Reading optical pivot and calbody data...\n');
 
@@ -41,7 +41,6 @@ fprintf('...Data read successfully.\n');
 fprintf('Performing optical pivot calibration...\n');
 
 % This cell array will store the H points after being transformed into the EM frame
-% will be the input to the pivot_calibration function
 H_prime_frames = cell(1, Nframes);
 
 % Loop through each frame

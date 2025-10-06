@@ -10,7 +10,7 @@
 
 
 data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
-file_name = 'pa1-debug-a-empivot.txt';
+file_name = 'pa1-debug-b-empivot.txt';
 empivot_file = fullfile(data_dir, file_name);
 addpath('programs');
 
