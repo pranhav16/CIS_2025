@@ -2,7 +2,7 @@ function pa1(mode, letter_index)
     % pa1.m
     %
     % Created on: Sep 23, 2025
-    % Author: [Your Name/TA Name]
+    % Author: Luiza Brunelli, Pranhav Sundararajan
     %
     % Main function for Programming Assignment 1.
     % To run a specific problem, call this function from the MATLAB command window
@@ -30,6 +30,7 @@ function pa1(mode, letter_index)
 
     % Add any extra directories to the MATLAB path
     addpath('problems');  % Add the problems subfolder
+    addpath('programs/problems');
     % you can add any more directories you make here
 
     % Check if an argument was provided
