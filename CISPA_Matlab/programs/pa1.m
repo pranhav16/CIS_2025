@@ -165,7 +165,7 @@ function pa1(mode, letter_index)
         end
     end
     fclose(fid);
-    %{
+    
     switch mode
         case 'debug'
             % -- OPTIONAL: error analysis ----
@@ -173,7 +173,33 @@ function pa1(mode, letter_index)
             % These may want to reference the following file in PA1 Student Data: 
             debug_output_name = sprintf('pa1-%s-%c-output1.txt', mode, letter_index);
             debug_output_file = fullfile(data_dir, debug_output_name);
+            % output_file points to your .txt
+            fid = fopen(output_file, 'r');
+            assert(fid ~= -1, 'Could not open: %s', output_file);
 
+            % Skip the header line (e.g., "N_c, N_frames, output_name")
+            fgetl(fid);
+
+            % Read remaining lines as three numeric columns
+            C = textscan(fid, '%f%f%f', 'Delimiter', {',',' '}, 'MultipleDelimsAsOne', true);
+            fclose(fid);
+
+            M = [C{1}, C{2}, C{3}];   % N×3 double matrix
+
+            fid = fopen(debug_output_name, 'r');
+            assert(fid ~= -1, 'Could not open: %s', debug_output_name);
+
+            % Skip the header line (e.g., "N_c, N_frames, output_name")
+            fgetl(fid);
+
+            % Read remaining lines as three numeric columns
+            C_expect = textscan(fid, '%f%f%f', 'Delimiter', {',',' '}, 'MultipleDelimsAsOne', true);
+            fclose(fid);
+
+            M_exp = [C_expect{1}, C_expect{2}, C_expect{3}];   % N×3 double matrix   
+
+            sum_ssd = sum(sqrt(sum((M_exp - M).^2, 2)),1)/size(M_exp,1);
+            fprintf('Average error between expected and computed outputs is %.2f\n', sum_ssd);
             % The auxilliary data file shows example/expected deviations between actual and estimated 
             % --------------------------------
         case 'unknown'
@@ -181,5 +207,5 @@ function pa1(mode, letter_index)
         otherwise
             
     end
-    %}
+    
 end
