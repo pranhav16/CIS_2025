@@ -1,5 +1,13 @@
 function [F_D] = problem4a(calbody_path, calreadings_path)
-  % Read models
+thisDir = fileparts(mfilename('fullpath'));
+% Two levels up
+parent2 = fileparts(fileparts(thisDir));
+%data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
+addpath(genpath(parent2));  
+
+
+
+% Read models
   [d, ~, ~] = read_calbody(calbody_path);   % Nd×3 (EM-base model LEDs)
   % Read per-frame readings
   [Dcells, Acells, ~] = read_calreadings(calreadings_path); % D[k] are Nd×3 in optical frame
