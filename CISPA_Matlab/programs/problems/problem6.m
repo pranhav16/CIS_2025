@@ -27,16 +27,7 @@ addpath(genpath(parent2));
 fprintf('Reading optical pivot and calbody data...\n');
 
 % Read the known locations of markers on the EM base (d_i)
-fid = fopen(calbody_file, 'r');
-header_line = fgetl(fid);
-header_data = sscanf(header_line, '%d,');
-ND = header_data(1);
-d = zeros(ND, 3);
-for i = 1:ND
-    line = fgetl(fid);
-    d(i, :) = sscanf(line, '%f, %f, %f');
-end
-fclose(fid);
+[d, ~, ~] = read_calbody(calbody_file);
 
 % Read the optical pivot data (D_k and H_k for each frame)
 [D_frames, H_frames] = read_optpivot_data(optpivot_file);
