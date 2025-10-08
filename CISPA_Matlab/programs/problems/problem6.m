@@ -9,13 +9,20 @@
         %
         % 3. Display the final optical pivot coordinates.
         % --------------------------
+function [P_dimple_opt] =  problem6(calbody_file,optpivot_file)
+thisDir = fileparts(mfilename('fullpath'));
+% Two levels up
+parent2 = fileparts(fileparts(thisDir));
+%data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
+addpath(genpath(parent2));
+%addpath('programs');
 
-addpath('programs');
 
-
-data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
-calbody_file = fullfile(data_dir, 'pa1-debug-b-calbody.txt');
-optpivot_file = fullfile(data_dir, 'pa1-debug-b-optpivot.txt');
+%data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
+%calbody_file = 'pa1-debug-b-calbody.txt';
+%fullfile(data_dir, 'pa1-debug-b-calbody.txt');
+%optpivot_file = 'pa1-debug-b-optpivot.txt';
+%fullfile(data_dir, 'pa1-debug-b-optpivot.txt');
 
 fprintf('Reading optical pivot and calbody data...\n');
 
@@ -67,3 +74,6 @@ P_dimple_opt = pivot_calibration(H_prime_frames);
 fprintf('\n--- Problem 6 Results ---\n');
 fprintf('Calculated Optical Pivot Post Position (P_dimple):\n');
 fprintf('  X: %.4f, Y: %.4f, Z: %.4f\n', P_dimple_opt(1), P_dimple_opt(2), P_dimple_opt(3));
+
+
+end
