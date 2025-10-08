@@ -7,12 +7,17 @@
         %
         % 3. Call your functions and display the final pivot coordinates.
         % --------------------------
+function [P_dimple_em] =  problem5(empivot_file)
 
-
-data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
-file_name = 'pa1-debug-b-empivot.txt';
-empivot_file = fullfile(data_dir, file_name);
-addpath('programs');
+thisDir = fileparts(mfilename('fullpath'));
+% Two levels up
+parent2 = fileparts(fileparts(thisDir));
+%data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
+addpath(genpath(parent2));
+%file_name = 'pa1-debug-b-empivot.txt';
+%empivot_file = file_name;
+%fullfile(data_dir, file_name);
+%addpath('programs');
 
 % Read the pivot data from the file
 fprintf('Reading EM pivot data from %s...\n', empivot_file);
@@ -27,3 +32,5 @@ P_dimple_em = pivot_calibration(G_frames);
 fprintf('\n--- Problem 5 Results ---\n');
 fprintf('Calculated EM Pivot Post Position (P_dimple):\n');
 fprintf('  X: %.4f, Y: %.4f, Z: %.4f\n', P_dimple_em(1), P_dimple_em(2), P_dimple_em(3));
+
+end
