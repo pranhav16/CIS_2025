@@ -2,7 +2,7 @@ function pa1(mode, letter_index)
     % pa1.m
     %
     % Created on: Sep 23, 2025
-    % Author: Luiza Brunelli, Pranhav Sundararajan
+    % Author: [Your Name/TA Name]
     %
     % Main function for Programming Assignment 1.
     % To run a specific problem, call this function from the MATLAB command window
@@ -29,8 +29,12 @@ function pa1(mode, letter_index)
     % (e.g. put all read data functions in a new sub directory 'data')
 
     % Add any extra directories to the MATLAB path
-    addpath('problems');  % Add the problems subfolder
-    addpath('programs/problems');
+    thisDir = fileparts(mfilename('fullpath'));
+% Two levels up
+    parent1 = fileparts((thisDir));
+%data_dir = '/Users/luiza/Documents/CIS I/CIS_2025/CISPA_Matlab/PA1 Student Data';
+    addpath(genpath(parent1));
+    %addpath('problems');  % Add the problems subfolder
     % you can add any more directories you make here
 
     % Check if an argument was provided
@@ -106,36 +110,36 @@ function pa1(mode, letter_index)
 
     % -- TODO: Problem 4a --
     % Call function problem4a.m
-    % Output frame F_A and anything else necessary
+    % Output frame F_D and anything else necessary
     % See file problem4a.m for further details
     % ------------
-
+    [F_D] = problem4a(calbody_name, calreadings_name);
     % --- TODO: Problem 4b ---
     % Call function problem4b.m
-    % Output frame F_D and anything else necessary
+    % Output frame F_A and anything else necessary
     % See file problem4b.m for further details
     % --------------------------
-
+    [F_A] = problem4b(calbody_name, calreadings_name);
     % --- TODO: Problem 4d ---
     % Call function problem4d.m
     % Output C_expected
     % see file problem4d.m for further details
     % --------------------------
-
+    [C_expected] = problem4d(calbody_name, calreadings_name);
     % --- TODO: Problem 5 ---
     % Call function problem5.m
     % implement logic for EM pivot calibration
     % Output final EM post coordinates Px, Py, Pz
     % see file problem5.m for further details
     % --------------------------
-
+    [P_dimple_em] =  problem5(empivot_name);
     % --- TODO: Problem 6 ---
     % Call function problem6.m
     % implement logic for optical pivot calibration
     % Output final optical post coordinates Px, Py, Pz
     % see file problem6.m for further details
     % --------------------------
-
+    [P_dimple_opt] =  problem6(calbody_name,optpivot_name);
     % -- TODO: Output ---
     % Defining output file name and location to generate
     output_name = sprintf('pa1-%s-%c-output-1.txt', mode, letter_index);
@@ -143,7 +147,25 @@ function pa1(mode, letter_index)
     % Write file header, EM post position, optical post position, and C_expected to output_file. 
     % You can make this a function that you call (ie. write_output.m)
     % ---------------------------
+    N_c = size(C_expected{1},1);
+    N_frames = numel(C_expected);
 
+    fid = fopen(output_file, 'w');
+    assert(fid ~= -1, 'Could not open file: %s', output_file);
+    fprintf(fid, '%d, %d, %s\n', N_c, N_frames, output_name);
+    fprintf(fid, '%.2f, %.2f, %.2f\n', P_dimple_em(1), P_dimple_em(2), P_dimple_em(3));
+    fprintf(fid, '%.2f, %.2f, %.2f\n', P_dimple_opt(1), P_dimple_opt(2), P_dimple_opt(3));
+
+    for i = 1:N_frames
+
+        for j = 1:N_c
+
+            fprintf(fid, '%.2f, %.2f, %.2f\n', C_expected{i}(j,1), C_expected{i}(j,2), C_expected{i}(j,3));
+
+        end
+    end
+    fclose(fid);
+    %{
     switch mode
         case 'debug'
             % -- OPTIONAL: error analysis ----
@@ -159,5 +181,5 @@ function pa1(mode, letter_index)
         otherwise
             
     end
-
+    %}
 end
