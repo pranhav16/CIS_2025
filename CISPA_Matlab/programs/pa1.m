@@ -198,8 +198,16 @@ function pa1(mode, letter_index)
 
             M_exp = [C_expect{1}, C_expect{2}, C_expect{3}];   % N×3 double matrix   
 
-            sum_ssd = sum(sqrt(sum((M_exp - M).^2, 2)),1)/size(M_exp,1);
-            fprintf('Average error between expected and computed outputs is %.2f\n', sum_ssd);
+            %sum_ssd = sum(sqrt(sum((M_exp - M).^2, 2))./sqrt(sum(M_exp.^2,2)),1)/size(M_exp,1);
+            absolute_errors = vecnorm(M_exp - M, 2, 2);
+
+% Calculate the magnitude of the true vectors
+            true_magnitudes = vecnorm(M_exp, 2, 2);
+            relative_errors = absolute_errors ./ true_magnitudes;
+
+% Calculate the mean relative error
+            sum_ssd = mean(relative_errors)*100;
+            fprintf('Average percent relative error between expected and computed outputs is %.6f\n', sum_ssd);
             % The auxilliary data file shows example/expected deviations between actual and estimated 
             % --------------------------------
         case 'unknown'
